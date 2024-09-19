@@ -64,11 +64,86 @@ public class ArrayListRunner {
         	handleFindString(reader);
         	break;
         	
+        case 9:
+        	handleDuplicateIndex(reader);
+        	break;
+        	
+        case 10:
+        	handleInsert(reader);
+        	break;
+        	
+        case 11:
+        	handleSublist(reader);
+        	break;
+        	
+        case 12:
+        	handleAddFirstList(reader);
+        	break;
+        	
+        case 13:
+        	handleAddSecondList(reader);
+        	break;
+        	
+        case 14:
+        	handleDelete(reader);
+        	break;
+        	
         case -1:
         	alRunner.flag = false;
         	return;
       }
     }
+  }
+  
+  public void handleDelete(Scanner reader) throws CustomException {
+	  List<Float> list = handleAddFloat(reader);
+	  System.out.print("Enter the index to delete from : ");
+	  int inputIndex= reader.nextInt();
+	  altask.remove(list, inputIndex);
+	  printList(list);
+  }
+  
+  public void handleAddFirstList(Scanner reader) throws CustomException {
+	  List<String> firstlist = handleAddStrings(reader);
+	  List<String> secondlist = handleAddStrings(reader);
+	  printList(handleMultiList(firstlist, secondlist));
+  }
+  
+  public void handleAddSecondList(Scanner reader) throws CustomException {
+	  List<String> firstlist = handleAddStrings(reader);
+	  List<String> secondlist = handleAddStrings(reader);
+	  printList(handleMultiList(secondlist, firstlist));
+  }
+  
+  public <T> List<T> handleMultiList(List<T> firstlist, List<T> secondlist) throws CustomException {
+	  return altask.addAll(firstlist, secondlist);
+  }
+  
+  public void handleSublist(Scanner reader) throws CustomException {
+	  List<String> list = handleAddStrings(reader);
+	  System.out.print("Enter the start and end index to trim ");
+	  int startIndex = reader.nextInt(), endIndex = reader.nextInt();
+	  List<String> subList = altask.sublist(list, startIndex, endIndex);
+	  printList(subList);
+  }
+  
+  public void handleInsert(Scanner reader) throws CustomException {
+	  List<String> list = handleAddStrings(reader);
+	  System.out.println("Enter the string to insert");
+	  String inputString = reader.next();
+	  System.out.println("Enter the index");
+	  int index = reader.nextInt();
+	  altask.insert(list, inputString, index);
+	  printList(list);
+  }
+  
+  public void handleDuplicateIndex(Scanner reader) throws CustomException {
+	  List<String> list = handleAddStrings(reader);
+	  System.out.println("Enter the duplicate string to find it's index");
+	  String inputString = reader.next();
+	  int firstIndex = altask.findFirstIndex(list, inputString);
+	  int lastIndex = altask.findLastIndex(list, inputString);
+	  System.out.println("The first index is " + firstIndex + " and last index is " + lastIndex);
   }
   
   public void handleFindString(Scanner reader) throws CustomException {
@@ -86,18 +161,13 @@ public class ArrayListRunner {
 	  while(iterator.hasNext()) {
 		  System.out.print(iterator.next() + " ");
 	  }
-	  // for loop
-//	  for(String string : list) { 
-//		  System.out.print(string + " ");
-//	  }
-
   }
   
   public void handleFindIndex(Scanner reader) throws CustomException {
 	  List<String> list = handleAddStrings(reader);
 	  System.out.print("Enter the string to find it's index : ");
 	  String inputString = reader.next();
-	  int index = altask.findIndex(list, inputString);
+	  int index = altask.findFirstIndex(list, inputString);
 	  System.out.println("The index is " + index);
 	  printList(list);
   }
@@ -131,6 +201,17 @@ public class ArrayListRunner {
 	  List<Integer> list =  altask.getArrayList();
 	  while(numberOfStrings --> 0) {
 		  altask.add(list, reader.nextInt());
+	  }
+	  printList(list);
+	  return list;
+  }
+  
+  public List<Float> handleAddFloat(Scanner reader) throws CustomException {
+	  System.out.println("Enter number of decimals to add");
+	  int numberOfDecimals = reader.nextInt();
+	  List<Float> list =  altask.getArrayList();
+	  while(numberOfDecimals--> 0) {
+		  altask.add(list, reader.nextFloat());
 	  }
 	  printList(list);
 	  return list;
