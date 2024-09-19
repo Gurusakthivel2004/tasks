@@ -88,11 +88,52 @@ public class ArrayListRunner {
         	handleDelete(reader);
         	break;
         	
+        case 15:
+        	handleListDelete(reader);
+        	
+        case 16:
+        	handlePredicate(reader);
+        	break;
+        	
+        case 17:
+        	handleAddRemove(reader);
+        	break;
+        
+        case 18:
+        	handleContains(reader);
+        	break;
+        	
         case -1:
         	alRunner.flag = false;
         	return;
       }
     }
+  }
+  
+  public void handleContains(Scanner reader) throws CustomException {
+	  List<String> list = handleAddStrings(reader);
+	  System.out.print("Enter the string to check : ");
+	  String inputString = reader.next();
+	  altask.contains(list, inputString);
+	  printList(list);
+  }
+  
+  public void handleAddRemove(Scanner reader) throws CustomException {
+	  List<Long> list = handleAddLong(reader);
+	  altask.deleteAll(list);
+	  printList(list);
+  }
+  
+  public void handlePredicate(Scanner reader) throws CustomException {
+	  List<String> firstlist = handleAddStrings(reader);
+	  List<String> secondlist = handleAddStrings(reader);
+	  printList(altask.deleteIf(firstlist, secondlist));
+  }
+  
+  public void handleListDelete(Scanner reader) throws CustomException {
+	  List<String> firstlist = handleAddStrings(reader);
+	  List<String> secondlist = handleAddStrings(reader);
+	  printList(altask.deleteAll(firstlist, secondlist));
   }
   
   public void handleDelete(Scanner reader) throws CustomException {
@@ -223,6 +264,17 @@ public class ArrayListRunner {
 	  List<String> list =  altask.getArrayList();
 	  while(numberOfStrings --> 0) {
 		  altask.add(list, reader.next());
+	  }
+	  printList(list);
+	  return list;
+  }
+  
+  public List<Long> handleAddLong(Scanner reader) throws CustomException {
+	  System.out.println("Enter number of long values to add");
+	  int numberOfStrings = reader.nextInt();
+	  List<Long> list =  altask.getArrayList();
+	  while(numberOfStrings --> 0) {
+		  altask.add(list, reader.nextLong());
 	  }
 	  printList(list);
 	  return list;

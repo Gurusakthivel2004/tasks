@@ -1,5 +1,6 @@
 package tasks;
 
+import java.lang.invoke.CallSite;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,32 @@ public class ArrayListTask {
 		Helper.checkNullValues(obj);
 		list.add(obj);
 		return list;
+	}
+	
+	public <T> List<T> deleteAll(List<T> firstList, List<T> secondList) throws CustomException {
+		Helper.checkNullValues(firstList);
+		Helper.checkNullValues(secondList);
+		firstList.removeAll(secondList);
+		return firstList;
+	}
+	
+	public <T> List<T> deleteIf(List<T> firstList, List<T> secondList) throws CustomException {
+		Helper.checkNullValues(firstList);
+		Helper.checkNullValues(secondList);
+		firstList.removeIf(element -> {
+			try {
+				return !contains(secondList, element);
+			} catch (CustomException e) {
+				return false;
+			}
+		});
+		return firstList;
+	}
+	
+	public <T> Boolean contains(List<T> list, T obj) throws CustomException {
+		Helper.checkNullValues(list);
+		Helper.checkNullValues(obj);
+		return list.contains(obj);
 	}
 	
 	public <T> T remove(List<T> list, int index) throws CustomException {
@@ -47,6 +74,11 @@ public class ArrayListTask {
 		Helper.checkNullValues(list);
 		Helper.checkNullValues(obj);
 		return list.indexOf(obj);
+	}
+	
+	public <T> void deleteAll(List<T> list) throws CustomException {
+		Helper.checkNullValues(list);
+		list.clear();
 	}
 	
 	public <T> int findLastIndex(List<T> list, T obj) throws CustomException {
