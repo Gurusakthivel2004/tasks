@@ -107,6 +107,10 @@ public class HashMapRunner {
         case 19:
         	handleIterator(reader);
         	break;
+        	
+        case 20:
+        	handleClear(reader);
+        	break;
         		
         case -1:
         	hmRunner.flag = false;
@@ -115,7 +119,11 @@ public class HashMapRunner {
     }
   }
   
-  
+  public void handleClear(Scanner reader) throws CustomException {
+	  Map<String, String> map = handleGetStrings(reader);
+	  hmtask.clear(map);
+	  printMap(map);
+  }
   
   public void handleTransfer(Scanner reader) throws CustomException {
 	  Map<String, String> firstMap = handleGetStrings(reader);
