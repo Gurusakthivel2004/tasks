@@ -1,13 +1,11 @@
 package tasks;
 
-import java.lang.invoke.CallSite;
 import java.util.ArrayList;
 import java.util.List;
-
 import exception.CustomException;
 import helper.util.Helper;
 
-public class ArrayListTask {
+public class ArrayListTask  {
 	
 	public <T> List<T> getArrayList() {
 		return new ArrayList<T>();
@@ -18,7 +16,7 @@ public class ArrayListTask {
 		return list.size();
 	}
 	
-	public <T> List<T> add(List<T> list, T obj) throws CustomException {
+	public <T> List<T> add(List<T> list, T obj) throws CustomException {//SOLID Principles -- O- Open Closed principle or Coding to the interface
 		Helper.checkNullValues(list);
 		Helper.checkNullValues(obj);
 		list.add(obj);
@@ -34,18 +32,11 @@ public class ArrayListTask {
 	
 	public <T> List<T> deleteIf(List<T> firstList, List<T> secondList) throws CustomException {
 		Helper.checkNullValues(firstList);
-		Helper.checkNullValues(secondList);
-		firstList.removeIf(element -> {
-			try {
-				return !contains(secondList, element);
-			} catch (CustomException e) {
-				return false;
-			}
-		});
+		firstList.retainAll(secondList);
 		return firstList;
 	}
 	
-	public <T> Boolean contains(List<T> list, T obj) throws CustomException {
+	public <T> boolean contains(List<T> list, T obj) throws CustomException {
 		Helper.checkNullValues(list);
 		Helper.checkNullValues(obj);
 		return list.contains(obj);

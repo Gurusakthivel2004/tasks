@@ -114,7 +114,7 @@ public class ArrayListRunner {
 	  List<String> list = handleAddStrings(reader);
 	  System.out.print("Enter the string to check : ");
 	  String inputString = reader.next();
-	  altask.contains(list, inputString);
+	  System.out.println("The list contains the string is " + altask.contains(list, inputString));
 	  printList(list);
   }
   
