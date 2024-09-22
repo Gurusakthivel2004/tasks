@@ -88,7 +88,7 @@ public class FileRunner {
 	    	}
 				
 	    } catch (CustomException exception) {
-			exception.printStackTrace();
+	    	fileRunner.logger.warning(exception.getMessage());
 		}
 	    
 	}
@@ -186,8 +186,8 @@ public class FileRunner {
 			while(numberOfWords --> 0) {
 				writer.write(reader.nextLine() + "\n");
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException exception) {
+	    	logger.warning(exception.getMessage());
 		}
 	}
  
