@@ -7,15 +7,20 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import car.CarModel;
 import exception.CustomException;
 import person.Person;
 import property.PropertyTask;
+import singleton.EagerSingleton;
+import tasks.TimeTask;
+import property.PropertyTask;
 
 public class FileRunner {
 	
+	TimeTask tTask = new TimeTask();
 	PropertyTask pTask = new PropertyTask();
     Logger logger = Logger.getLogger(FileRunner.class.getName());
     
@@ -44,6 +49,8 @@ public class FileRunner {
 		FileRunner fileRunner = new FileRunner();
 		Scanner reader = new Scanner(System.in);
 		
+//		EagerSingleton.abc();
+		fileRunner.handleTimeOperations();
 		fileRunner.logger.info("Enter the question number: ");
 	    int questionNo = reader.nextInt();
 	    reader.nextLine();
@@ -51,15 +58,15 @@ public class FileRunner {
 	    	switch(questionNo) {
 	    	
 	        	case 1:
-	        		fileRunner.createFile("sample.txt", reader);
+	        		fileRunner.createFile(reader);
 	        		break;
 	        		
 	        	case 2:
-	        		fileRunner.storeProperties("myprops.txt", reader);
+	        		fileRunner.storeProperties(reader);
 	        		break;
 	        	
 	        	case 3:
-	        		fileRunner.loadProperties("myprops.txt");
+	        		fileRunner.loadProperties(reader);
 	        		break;
 	        		
 	        	case 4:
@@ -85,6 +92,8 @@ public class FileRunner {
 	        	case 9:
 	        		fileRunner.handleEnum();
 	        		break;
+	        		
+	        		
 	    	}
 				
 	    } catch (CustomException exception) {
@@ -93,13 +102,41 @@ public class FileRunner {
 	    
 	}
 	
+	public void handleTimeOperations() {
+		logger.info("The current time is " + tTask.getCurrentTime() + "\n");
+		logger.info("The current milliseconds is " + tTask.getCurrentTimeInMillis());
+		logger.info("The current time in cities is " + tTask.getCurrentTimeInCities("Asia/Kolkata"));
+	}
+	
+	public void callPojoGetSet() {
+		Person person = new Person();
+		person.setName("Alice");
+        person.setAge(30);
+        logger.info("Name: " + person.getName());
+        logger.info("Age: " + person.getAge());
+	}
+	
+	public void callPojo() {
+		Person person = new Person("guru", 20);
+		logger.info(person.toString());
+	}
+	
+	public void callConstructor() {
+		CarModel carModel = new CarModel("sedan");
+		logger.info(carModel.toString());
+	}
+	
+	public void customDirectory(Scanner reader) throws CustomException {
+        createFile(reader);
+        storeProperties(reader);
+        loadProperties(reader);
+	}
+	
+	
 	public void handleReflector() {
 		try {
 			Class<?> pojoClass = Class.forName("person.Person");
-	
-	        Constructor<?> defaultConstructor = pojoClass.getConstructor();
-	        Object pojoDefault = defaultConstructor.newInstance();
-	
+			
 	        Constructor<?> overloadedConstructor = pojoClass.getConstructor(String.class, Integer.class);
 	        Object pojoOverloaded = overloadedConstructor.newInstance("guru", 20);
 	        Method getNameMethod = pojoClass.getMethod("getName");
@@ -120,71 +157,46 @@ public class FileRunner {
         }
 	}
 	
-	public void callPojoGetSet() {
-		Person person = new Person();
-		person.setName("Alice");
-        person.setAge(30);
-        logger.info("Name: " + person.getName());
-        logger.info("Age: " + person.getAge());
-	}
-	
-	public void callPojo() {
-		Person person = new Person("guru", 20);
-		logger.info(person.toString());
-	}
-	
-	public void callConstructor() {
-		CarModel carModel = new CarModel("sedan");
-		logger.info(carModel.toString());
-		
-	}
-	
-	public void customDirectory(Scanner reader) throws CustomException {
-		String directoryPath = "/home/guru-pt7672/Dynamic/myDir";
-        String sampleFilePath = directoryPath + "/sample.txt";
-        String mypropsFilePath = directoryPath + "/myprops.txt";
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            boolean isCreated = directory.mkdirs();
-            System.out.print(isCreated);
-            if (!isCreated) {
-            	return;
-            } 
-        }
-        createFile(sampleFilePath, reader);
-        storeProperties(mypropsFilePath, reader);
-        loadProperties(mypropsFilePath);
-	}
-	
-	public void loadProperties(String filePath) throws CustomException {
+	public void loadProperties(Scanner reader) throws CustomException {
+		logger.info("Enter the file path : ");
+		String filePath = reader.nextLine();
 		File file = new File(filePath);
         if (!file.exists()) {
         	throw new CustomException("No file exists");
         }
-		Properties props = pTask.loadPropertiesFromFile(filePath);
+		Properties props = (Properties) pTask.loadPropertiesFromFile(filePath);
 		props.list(System.out);
 	}
 	
-	public void storeProperties(String filePath, Scanner reader) throws CustomException {
-		Properties props = pTask.getProperty();
+	public void storeProperties(Scanner reader) throws CustomException {
+		logger.info("Enter the directory path: ");
+		String directoryPath = reader.nextLine();
+		logger.info("Enter the file name: ");
+		String fileName = reader.nextLine();
+		Properties props = (Properties) pTask.getProperty();
 		logger.info("Enter number of key value pairs to store");
 		int length = reader.nextInt();
 		reader.nextLine();
 		while(length --> 0) {
 	        pTask.addProperty(props, reader.next(), reader.next());
 		}
-        pTask.storePropertiesToFile(filePath, props);
+		reader.nextLine();
+        pTask.storePropertiesToFile(directoryPath, fileName, props);
 		
 	}
 	
-	public void createFile(String filePath, Scanner reader) {
-		try (FileWriter writer = new FileWriter(filePath)){
+	public void createFile(Scanner reader) throws CustomException {
+		
+		logger.info("Enter the file name: ");
+		String fileName = reader.nextLine();
+		String directoryPath = System.getProperty("user.dir");
+		try (FileWriter writer = pTask.createFile(directoryPath, fileName)){
 			logger.info("Enter the number of words : ");
 			int numberOfWords = reader.nextInt();
 			reader.nextLine();
 			logger.info("Enter the words to add in the file");
 			while(numberOfWords --> 0) {
-				writer.write(reader.nextLine() + "\n");
+				pTask.writeFile(reader.nextLine() + "\n", writer);
 			}
 		} catch (IOException exception) {
 	    	logger.warning(exception.getMessage());

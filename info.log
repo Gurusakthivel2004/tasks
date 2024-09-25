@@ -1,0 +1,32 @@
+Sep 25, 2024 2:58:22 PM runner.ThreadRunner handleCustomThreads
+INFO: Enter how many milliseconds you want the threads to sleep : 
+Sep 25, 2024 2:58:26 PM runner.ThreadRunner handleCustomThreads
+INFO: Enter how many threads you want to create : 
+Sep 25, 2024 2:58:32 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping ExtendedThread-0
+Sep 25, 2024 2:58:32 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping RunnableThread-0
+Sep 25, 2024 2:58:32 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping ExtendedThread-1
+Sep 25, 2024 2:58:32 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping RunnableThread-1
+Sep 25, 2024 2:58:32 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping ExtendedThread-2
+Sep 25, 2024 2:58:32 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping RunnableThread-2
+Sep 25, 2024 3:04:40 PM runner.ThreadRunner handleCustomThreads
+INFO: Enter how many milliseconds you want the threads to sleep : 
+Sep 25, 2024 3:04:43 PM runner.ThreadRunner handleCustomThreads
+INFO: Enter how many threads you want to create : 
+Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping ExtendedThread-0
+Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping RunnableThread-0
+Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping ExtendedThread-1
+Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping RunnableThread-1
+Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping ExtendedThread-2
+Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
+INFO: Stopping RunnableThread-2
