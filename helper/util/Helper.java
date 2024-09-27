@@ -1,5 +1,7 @@
 package helper.util;
 
+import java.util.regex.Pattern;
+
 import exception.CustomException;
 
 public class Helper {
@@ -13,10 +15,27 @@ public class Helper {
     public static void set(String newValue) {
     	threadLocal.set(newValue);
     }
+    
 	public static void checkNullValues(Object inputObject) throws CustomException{
 	   if(inputObject== null) {  
 		   throw new CustomException("Error: Null value provided.");
 	   }
+	}
+	
+	public static void checkNumber(String number) throws CustomException {
+		checkNullValues(number);
+        String patternString = "^\\d{10}$";
+		if(!Pattern.matches(patternString, number)) {
+			throw new CustomException("Error: Mobile number must have 10 digits!");
+		}
+	}
+	
+	public static void checkEmail(String email) throws CustomException {
+		checkNullValues(email);
+		String patternString = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,18}$";
+		if(!Pattern.matches(patternString, email)) {
+			throw new CustomException("Error: Email is not valid");
+		}
 	}
 	
 	public static void checkIndexBounds(int index, int limit) throws CustomException{

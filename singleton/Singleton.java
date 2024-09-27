@@ -21,9 +21,6 @@ public class Singleton implements Serializable{
     
     public void readObject(ObjectInputStream os) throws IOException,ClassNotFoundException {
     	os.defaultReadObject();
-    	if(instance == null) {
-    		instance = this;
-    	}
     }
     
     private Object readResolve() throws ObjectStreamException{

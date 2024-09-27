@@ -30,3 +30,5 @@ Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
 INFO: Stopping ExtendedThread-2
 Sep 25, 2024 3:04:49 PM runner.ThreadRunner handleCustomThreads
 INFO: Stopping RunnableThread-2
+Sep 25, 2024 5:38:51 PM runner.ThreadRunner main
+SEVERE: Error occured
