@@ -34,7 +34,7 @@ public class StringTask {
     return inputString.trim();
   }
   
-  public String mergeString(String delimiter, String[] stringArray) throws CustomException {//swami
+  public String mergeString(String delimiter, String[] stringArray) throws CustomException {
     Helper.checkNullValues(stringArray);
     Helper.checkNullValues(delimiter);
     return String.join(delimiter, stringArray);
@@ -94,7 +94,7 @@ public class StringTask {
     return inputString.length();
   }
   
-  public char characterAt(String inputString, int position) throws CustomException {//swami
+  public char characterAt(String inputString, int position) throws CustomException {
     int length = stringLength(inputString);
     Helper.checkIndexBounds(position, length);
     return inputString.charAt(position);
